@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import CartItem from "./CartItem";
 
 export default function Cart({

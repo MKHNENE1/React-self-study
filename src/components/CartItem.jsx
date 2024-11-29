@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Trash from "./icons/Trash";
 
 export default function CartItem({

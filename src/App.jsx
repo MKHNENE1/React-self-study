@@ -4,9 +4,9 @@ import Navbar from "./components/Navbar";
 
 function App() {
   const [items, setItems] = useState([
-    { name: "frise", count: 8 },
-    { name: "burger", count: 2 },
-    { name: "water", count: 6 },
+    { name: "frise", count: 0 },
+    { name: "burger", count: 0 },
+    { name: "water", count: 0 },
   ]);
 
   function handelClick(num, item) {
@@ -30,7 +30,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar noOfItems={items.filter((item) => item.count > 0).length} />
       <main>
         <Cart
           items={items}
