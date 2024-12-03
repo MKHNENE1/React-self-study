@@ -1,6 +1,12 @@
 import { useState } from "react";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
+import { BrowserRouter, Route, Routes } from "react-router";
+import About from "./pages/About";
+import ContactUs from "./pages/ContactUs";
+import Login from "./pages/Login";
+import Product from "./pages/Product";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [items, setItems] = useState([
@@ -29,17 +35,29 @@ function App() {
   }
 
   return (
-    <>
+    <BrowserRouter>
       <Navbar noOfItems={items.filter((item) => item.count > 0).length} />
-      <main>
-        <Cart
-          items={items}
-          handelClick={handelClick}
-          handelReset={handelReset}
-          handelDelete={handelDelete}
-        />
+      <main className="w-fit mx-auto mt-3">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Cart
+                items={items}
+                handelClick={handelClick}
+                handelReset={handelReset}
+                handelDelete={handelDelete}
+              />
+            }
+          />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
-    </>
+    </BrowserRouter>
   );
 }
 
