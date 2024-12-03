@@ -1,27 +1,44 @@
 /* eslint-disable react/prop-types */
 import CartIcon from "./icons/CartIcon";
+import NavBarLink from "./NavBarLink";
 
 export default function Navbar({ noOfItems }) {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <NavBarLink
+          to={"/"}
+          classes="btn btn-ghost text-xl no-underline"
+          label={"STUDY"}
+        />
       </div>
       <div className="flex-none">
-        <ul className="px-1">
+        <ul className="menu menu-horizontal gap-3 px-1 text-xl">
           <li>
-            <a className="btn btn-ghost">
-              <div className="indicator">
-                {noOfItems > 0 && (
-                  <span className="indicator-item badge text-xs badge-secondary">
-                    {noOfItems}
-                  </span>
-                )}
-                <div className="place-items-center">
-                  <CartIcon />
+            <NavBarLink to={"/about"} label={"About"} />
+          </li>
+          <li>
+            <NavBarLink to={"/contact"} label={"Contact Us"} />
+          </li>
+          <li>
+            <NavBarLink to={"/login"} label={"Login"} />
+          </li>
+          <li>
+            <NavBarLink
+              to={"/"}
+              label={
+                <div className="indicator">
+                  {noOfItems > 0 && (
+                    <span className="indicator-item badge text-xs badge-secondary">
+                      {noOfItems}
+                    </span>
+                  )}
+                  <div className="place-items-center">
+                    <CartIcon />
+                  </div>
                 </div>
-              </div>
-            </a>
+              }
+            />
           </li>
         </ul>
       </div>
