@@ -1,5 +1,15 @@
-import React from "react";
+import { useNavigate } from "react-router";
 
 export default function Login() {
-  return <div className="btn btn-primary">Login</div>;
+  const navigate = useNavigate();
+
+  function handelLogin() {
+    navigate("/", { state: "Hello from Login" });
+  }
+
+  return (
+    <div onClick={handelLogin} className="btn btn-primary">
+      Login
+    </div>
+  );
 }
