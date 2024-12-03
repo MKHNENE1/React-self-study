@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useLocation } from "react-router";
 import CartItem from "./CartItem";
 
 export default function Cart({
@@ -7,8 +8,10 @@ export default function Cart({
   handelReset,
   handelDelete,
 }) {
+  const { state } = useLocation();
   return (
     <div>
+      <div>{state}</div>
       {items.map((item, index) => (
         <CartItem
           key={index}
