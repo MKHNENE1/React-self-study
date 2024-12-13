@@ -23,9 +23,13 @@ export default function Cart({
             handelDelete={handelDelete}
           ></CartItem>
         ))}
-        <div className="m-5 btn btn-error" onClick={handelReset}>
-          Reset All
-        </div>
+        {items.length > 0 ? (
+          <div className="m-5 btn btn-error" onClick={handelReset}>
+            Reset All
+          </div>
+        ) : (
+          <div>No items found</div>
+        )}
       </div>
     </div>
   );
