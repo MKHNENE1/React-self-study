@@ -1,11 +1,18 @@
-import { useState } from "react";
-import { Link, Outlet } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router";
 
 export default function About() {
   const [active, setActive] = useState("n1");
-  function changeActive(newValue) {
-    setActive(newValue);
-  }
+  const location = useLocation();
+  useEffect(() => {
+    (function handelActive() {
+      const path = location.pathname.split("/about");
+      if (path[1] === "") {
+        setActive("n1");
+      }
+    })();
+  }, [location]);
+
   return (
     <div className="bg-slate-300 flex lg:justify-between flex-wrap mx-1">
       <aside className="w-1/3 min-w-fit flex-1">
@@ -13,7 +20,7 @@ export default function About() {
           <li>
             <Link
               className={active == "n1" ? "active" : ""}
-              onClick={() => changeActive("n1")}
+              onClick={() => setActive("n1")}
               to={"/about"}
             >
               Link 1
@@ -22,7 +29,7 @@ export default function About() {
           <li>
             <Link
               className={active == "n2" ? "active" : ""}
-              onClick={() => changeActive("n2")}
+              onClick={() => setActive("n2")}
               to={"nested2"}
             >
               Link 2
@@ -31,7 +38,7 @@ export default function About() {
           <li>
             <Link
               className={active == "n3" ? "active" : ""}
-              onClick={() => changeActive("n3")}
+              onClick={() => setActive("n3")}
               to={"nested3"}
             >
               Link 3
