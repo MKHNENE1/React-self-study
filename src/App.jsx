@@ -7,6 +7,9 @@ import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
 import NotFound from "./pages/NotFound";
+import Nested1 from "./components/nested/Nested1";
+import Nested2 from "./components/nested/Nested2";
+import Nested3 from "./components/nested/Nested3";
 
 function App() {
   const [items, setItems] = useState([
@@ -37,7 +40,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar noOfItems={items.filter((item) => item.count > 0).length} />
-      <main className="w-fit mx-auto mt-3">
+      <main className="container mx-auto mt-3">
         <Routes>
           <Route
             path="/"
@@ -51,7 +54,11 @@ function App() {
             }
           />
           <Route path="/product/:id" element={<Product />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About />}>
+            <Route index element={<Nested1 />} />
+            <Route path="nested2" element={<Nested2 />} />
+            <Route path="nested3" element={<Nested3 />} />
+          </Route>
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
