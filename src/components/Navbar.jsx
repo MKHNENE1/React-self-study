@@ -2,7 +2,7 @@
 import CartIcon from "./icons/CartIcon";
 import NavBarLink from "./NavBarLink";
 
-export default function Navbar({ noOfItems }) {
+export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="navbar bg-base-300">
       <div className="container mx-auto">
@@ -62,7 +62,16 @@ export default function Navbar({ noOfItems }) {
                   <NavBarLink to={"/contact"} label={"Contact Us"} />
                 </li>
                 <li>
-                  <NavBarLink to={"/login"} label={"Login"} />
+                  {isLoggedIn ? (
+                    <NavBarLink
+                      click={() => setIsLoggedIn(false)}
+                      to={"/"}
+                      label={"Logout"}
+                      classes={"no-underline"}
+                    />
+                  ) : (
+                    <NavBarLink to={"/login"} label={"Login"} />
+                  )}
                 </li>
               </ul>
             </div>
@@ -78,7 +87,16 @@ export default function Navbar({ noOfItems }) {
               <NavBarLink to={"/contact"} label={"Contact Us"} />
             </li>
             <li>
-              <NavBarLink to={"/login"} label={"Login"} />
+              {isLoggedIn ? (
+                <NavBarLink
+                  click={() => setIsLoggedIn(false)}
+                  to={"/"}
+                  label={"Logout"}
+                  classes={"no-underline"}
+                />
+              ) : (
+                <NavBarLink to={"/login"} label={"Login"} />
+              )}
             </li>
             <li>
               <NavBarLink
