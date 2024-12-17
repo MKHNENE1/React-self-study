@@ -7,12 +7,16 @@ export default function Cart({
   handelClick,
   handelReset,
   handelDelete,
+  isLoggedIn,
 }) {
   const { state } = useLocation();
+  console.log(isLoggedIn);
+  console.log(state);
+
   return (
     <div>
-      {state && <div>{state}</div>}
       <div className="w-fit mx-auto">
+        {isLoggedIn && state ? <div>{state}</div> : ""}
         {items.map((item, index) => (
           <CartItem
             key={index}
