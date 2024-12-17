@@ -37,15 +37,22 @@ function App() {
     setItems(newItems.filter((item, index) => index != itemIndex));
   }
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
-      <Navbar noOfItems={items.filter((item) => item.count > 0).length} />
+      <Navbar
+        noOfItems={items.filter((item) => item.count > 0).length}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
       <main className="container mx-auto mt-3">
         <Routes>
           <Route
             path="/"
             element={
               <Cart
+                isLoggedIn={isLoggedIn}
                 items={items}
                 handelClick={handelClick}
                 handelReset={handelReset}
@@ -60,7 +67,12 @@ function App() {
             <Route path="nested3" element={<Nested3 />} />
           </Route>
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
