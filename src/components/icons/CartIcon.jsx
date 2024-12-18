@@ -1,8 +1,9 @@
-export default function Cart() {
+/* eslint-disable react/prop-types */
+export default function Cart(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      fill={props?.isInCart ? "black" : "none"}
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
