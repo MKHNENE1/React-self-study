@@ -6,7 +6,7 @@ export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="navbar bg-base-300">
       <div className="container mx-auto">
-        <div className="navbar-start justify-between flex w-full">
+        <div className="navbar-start justify-between flex flex-wrap w-full">
           <NavBarLink
             to={"/"}
             classes="btn btn-ghost text-xl no-underline"
@@ -15,7 +15,7 @@ export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
           <div className="w-fit flex lg:hidden gap-[4px]">
             <div className="btn btn-ghost lg:hidden">
               <NavBarLink
-                to={"/"}
+                to={"/cart"}
                 label={
                   <div className="indicator">
                     {noOfItems > 0 && (
@@ -100,7 +100,7 @@ export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
             </li>
             <li>
               <NavBarLink
-                to={"/"}
+                to={"/cart"}
                 label={
                   <div className="indicator">
                     {noOfItems > 0 && (
