@@ -9,11 +9,10 @@ export default function CartItem({
   item,
 }) {
   return (
-    <div className="flex items-center gap-3 p-5">
-      <div className="min-w-20 capitalize">{name}</div>
+    <div className="flex items-center gap-3 p-5 flex-wrap">
+      <div className="min-w-32 capitalize">{name}</div>
       <div className="bg-slate-500 text-white rounded-lg py-3 px-[18px]">
-        {" "}
-        {count}{" "}
+        {count}
       </div>
       <div className="btn btn-accent" onClick={() => handelClick(1, item)}>
         +
@@ -34,7 +33,7 @@ export default function CartItem({
       >
         Reset
       </div>
-      <div className="btn btn-error" onClick={() => handelDelete(item)}>
+      <div className="btn btn-error" onClick={() => handelDelete(item.id)}>
         <Trash />
       </div>
     </div>
