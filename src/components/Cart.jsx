@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import CartItem from "./CartItem";
 
 export default function Cart({
@@ -10,13 +10,13 @@ export default function Cart({
   isLoggedIn,
 }) {
   const { state } = useLocation();
-  console.log(isLoggedIn);
-  console.log(state);
+  // console.log(isLoggedIn);
+  // console.log(state);
 
   return (
     <div>
       <div className="w-fit mx-auto">
-        {isLoggedIn && state ? <div>{state}</div> : ""}
+        {/* {isLoggedIn && state ? <div>{state}</div> : ""} */}
         {items.map((item, index) => (
           <CartItem
             key={index}
@@ -32,7 +32,12 @@ export default function Cart({
             Reset All
           </div>
         ) : (
-          <div>No items found</div>
+          <div>
+            No items found, Go to the{" "}
+            <Link to={"/"} className="underline">
+              Menu
+            </Link>{" "}
+          </div>
         )}
       </div>
     </div>
