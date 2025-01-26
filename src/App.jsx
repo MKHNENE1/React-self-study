@@ -13,19 +13,95 @@ import Nested3 from "./components/nested/Nested3";
 import Menu from "./pages/Menu";
 
 function App() {
+  scrollTo(0, 0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [items, setItems] = useState([
-    { id: 1, name: "Big frise", count: 0, isInCart: false, price: 30 },
-    { id: 2, name: "Big burger", count: 0, isInCart: false, price: 50 },
-    { id: 3, name: "Big water", count: 0, isInCart: false, price: 10 },
-    { id: 4, name: "Medium frise", count: 0, isInCart: false, price: 20 },
-    { id: 5, name: "Medium burger", count: 0, isInCart: false, price: 40 },
-    { id: 6, name: "Medium water", count: 0, isInCart: false, price: 7 },
-    { id: 7, name: "Small frise", count: 0, isInCart: false, price: 10 },
-    { id: 8, name: "Small burger", count: 0, isInCart: false, price: 30 },
-    { id: 9, name: "Small water", count: 0, isInCart: false, price: 5 },
+    {
+      id: 1,
+      name: "Big frise",
+      count: 0,
+      isInCart: false,
+      price: 30,
+      categoryId: 1,
+    },
+    {
+      id: 2,
+      name: "Big burger",
+      count: 0,
+      isInCart: false,
+      price: 50,
+      categoryId: 2,
+    },
+    {
+      id: 3,
+      name: "Big water",
+      count: 0,
+      isInCart: false,
+      price: 10,
+      categoryId: 3,
+    },
+    {
+      id: 4,
+      name: "Medium frise",
+      count: 0,
+      isInCart: false,
+      price: 20,
+      categoryId: 1,
+    },
+    {
+      id: 5,
+      name: "Medium burger",
+      count: 0,
+      isInCart: false,
+      price: 40,
+      categoryId: 2,
+    },
+    {
+      id: 6,
+      name: "Medium water",
+      count: 0,
+      isInCart: false,
+      price: 7,
+      categoryId: 3,
+    },
+    {
+      id: 7,
+      name: "Small frise",
+      count: 0,
+      isInCart: false,
+      price: 10,
+      categoryId: 1,
+    },
+    {
+      id: 8,
+      name: "Small burger",
+      count: 0,
+      isInCart: false,
+      price: 30,
+      categoryId: 2,
+    },
+    {
+      id: 9,
+      name: "Small water",
+      count: 0,
+      isInCart: false,
+      price: 5,
+      categoryId: 3,
+    },
   ]);
+
+  const [categories, setCategories] = useState([
+    { id: 0, name: "All" },
+    { id: 1, name: "Fries" },
+    { id: 2, name: "Burger" },
+    { id: 3, name: "Water" },
+  ]);
+
+  const pageSize = 6;
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   function handelClick(num, item) {
     const newItems = [...items];
@@ -40,11 +116,12 @@ function App() {
     setItems(newItems);
   }
 
-  function handelDelete(item) {
-    const newItems = [...items];
-    const itemIndex = newItems.indexOf(item);
-    setItems(newItems.filter((item, index) => index != itemIndex));
-  }
+  // function handelDelete(item) {
+  //   const newItems = [...items];
+  //   const itemIndex = newItems.indexOf(item);
+  //   setItems(newItems.filter((item, index) => index != itemIndex));
+  // }
+
   function handelAddToCart(id) {
     // setItems({...items, items.filter((item)=> item.id == id)})
     const newItems = [...items];
@@ -55,7 +132,24 @@ function App() {
     setItems(newItems);
   }
 
-  // console.log(items);
+  function handleSelectCategory(id) {
+    setSelectedCategory(id);
+    setCurrentPage(1);
+  }
+
+  function handleChangeCurrentPage(page) {
+    setCurrentPage(page);
+  }
+
+  let itemsToRender = selectedCategory
+    ? items.filter((item) => item.categoryId === selectedCategory)
+    : items;
+
+  const noOfPages = Math.ceil(itemsToRender.length / pageSize);
+  const startPage = (currentPage - 1) * pageSize;
+  itemsToRender = itemsToRender.slice(startPage, pageSize + startPage);
+  // console.log(itemsToRender);
+
   return (
     <BrowserRouter>
       <Navbar
@@ -67,7 +161,18 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Menu items={items} handelAddToCart={handelAddToCart} />}
+            element={
+              <Menu
+                currentPage={currentPage}
+                items={itemsToRender}
+                categories={categories}
+                handelAddToCart={handelAddToCart}
+                selectedCategory={selectedCategory}
+                handleSelectCategory={handleSelectCategory}
+                noOfPages={noOfPages}
+                handleChangeCurrentPage={handleChangeCurrentPage}
+              />
+            }
           />
           <Route
             path="/cart"
