@@ -98,6 +98,8 @@ function App() {
     { id: 3, name: "Water" },
   ]);
 
+  const [searchValue, setSearchValue] = useState("");
+
   const pageSize = 6;
   const [selectedCategory, setSelectedCategory] = useState(0);
 
@@ -141,9 +143,19 @@ function App() {
     setCurrentPage(page);
   }
 
-  let itemsToRender = selectedCategory
-    ? items.filter((item) => item.categoryId === selectedCategory)
+  function handleSearch(value) {
+    setSearchValue(value);
+  }
+
+  let searchedItems = searchValue
+    ? items.filter((item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase())
+      )
     : items;
+
+  let itemsToRender = selectedCategory
+    ? searchedItems.filter((item) => item.categoryId === selectedCategory)
+    : searchedItems;
 
   const noOfPages = Math.ceil(itemsToRender.length / pageSize);
   const startPage = (currentPage - 1) * pageSize;
@@ -171,6 +183,7 @@ function App() {
                 handleSelectCategory={handleSelectCategory}
                 noOfPages={noOfPages}
                 handleChangeCurrentPage={handleChangeCurrentPage}
+                handleSearch={handleSearch}
               />
             }
           />
