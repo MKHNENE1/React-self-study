@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import CartIcon from "./icons/CartIcon";
 import NavBarLink from "./NavBarLink";
+import { UserContext } from "../contexts/UserContext";
 
-export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
+export default function Navbar({ noOfItems }) {
+  const { user, isLogedIn, logOut } = useContext(UserContext);
+
   return (
     <div className="navbar bg-base-300">
       <div className="container mx-auto">
@@ -62,13 +66,37 @@ export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
                   <NavBarLink to={"/contact"} label={"Contact Us"} />
                 </li>
                 <li>
-                  {isLoggedIn ? (
-                    <NavBarLink
-                      click={() => setIsLoggedIn(false)}
-                      to={"/"}
-                      label={"Logout"}
-                      classes={"no-underline"}
-                    />
+                  {isLogedIn ? (
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="dropdown dropdown-end"
+                    >
+                      <div className="btn btn-sm btn-ghost btn-circle avatar">
+                        <div className="w-10 rounded-full">
+                          <img
+                            alt="Tailwind CSS Navbar component"
+                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                          />
+                        </div>
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="menu menu-sm overflow-hidden dropdown-content top-11 bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                      >
+                        <li className="my-1 overflow-hidden">
+                          <p>Welcome {user.email.split("@")[0]}</p>
+                        </li>
+                        <li>
+                          <NavBarLink
+                            click={() => logOut()}
+                            to={"/"}
+                            label={"Logout"}
+                            classes={"no-underline"}
+                          />
+                        </li>
+                      </ul>
+                    </div>
                   ) : (
                     <NavBarLink to={"/login"} label={"Login"} />
                   )}
@@ -79,7 +107,7 @@ export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
         </div>
 
         <div className="navbar-end hidden lg:flex w-full">
-          <ul className="menu menu-horizontal gap-3 text-lg">
+          <ul className="menu menu-horizontal items-center gap-3 text-lg">
             <li>
               <NavBarLink to={"/about"} label={"About"} />
             </li>
@@ -87,13 +115,37 @@ export default function Navbar({ noOfItems, isLoggedIn, setIsLoggedIn }) {
               <NavBarLink to={"/contact"} label={"Contact Us"} />
             </li>
             <li>
-              {isLoggedIn ? (
-                <NavBarLink
-                  click={() => setIsLoggedIn(false)}
-                  to={"/"}
-                  label={"Logout"}
-                  classes={"no-underline"}
-                />
+              {isLogedIn ? (
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="dropdown dropdown-end"
+                >
+                  <div className="btn btn-sm btn-ghost btn-circle avatar">
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt="Tailwind CSS Navbar component"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm overflow-hidden dropdown-content top-11 bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                  >
+                    <li className="my-1 overflow-hidden">
+                      <p>Welcome {user.email.split("@")[0]}</p>
+                    </li>
+                    <li>
+                      <NavBarLink
+                        click={() => logOut()}
+                        to={"/"}
+                        label={"Logout"}
+                        classes={"no-underline"}
+                      />
+                    </li>
+                  </ul>
+                </div>
               ) : (
                 <NavBarLink to={"/login"} label={"Login"} />
               )}
