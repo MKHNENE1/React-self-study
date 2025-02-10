@@ -14,8 +14,6 @@ import Menu from "./pages/Menu";
 
 function App() {
   scrollTo(0, 0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [items, setItems] = useState([
     {
       id: 1,
@@ -164,11 +162,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar
-        noOfItems={items.filter((item) => item.isInCart).length}
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-      />
+      <Navbar noOfItems={items.filter((item) => item.isInCart).length} />
       <main className="container mx-auto mt-3">
         <Routes>
           <Route
@@ -191,7 +185,6 @@ function App() {
             path="/cart"
             element={
               <Cart
-                isLoggedIn={isLoggedIn}
                 items={items.filter((item) => item.isInCart)}
                 handelClick={handelClick}
                 handelReset={handelReset}
@@ -206,12 +199,7 @@ function App() {
             <Route path="nested3" element={<Nested3 />} />
           </Route>
           <Route path="/contact" element={<ContactUs />} />
-          <Route
-            path="/login"
-            element={
-              <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-            }
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
