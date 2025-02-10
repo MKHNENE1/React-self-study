@@ -1,16 +1,17 @@
-/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router";
 import Email from "../components/icons/Email";
 import Password from "../components/icons/Password";
-import { useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { object, string } from "yup";
+import { UserContext } from "../contexts/UserContext";
 
 const loginSchema = object({
-  email: string().required(),
-  password: string().required(),
+  email: string().email().required(),
+  password: string().min(4).required().max(6),
 });
 
-export default function Login({ setIsLoggedIn }) {
+export default function Login() {
+  const { login } = useContext(UserContext);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -26,7 +27,8 @@ export default function Login({ setIsLoggedIn }) {
     try {
       setError({ email: null, password: null });
       const x = loginSchema.validateSync(form, { abortEarly: false });
-      console.log(x);
+      login(x);
+      navigate("/");
     } catch (err) {
       err.inner.forEach((errorItem) => {
         setError((prevError) => ({
@@ -35,9 +37,6 @@ export default function Login({ setIsLoggedIn }) {
         }));
       });
     }
-
-    // setIsLoggedIn(true);
-    // navigate("/", { state: "Hello from Login" });
   }
 
   function handelChange(e) {
@@ -53,7 +52,6 @@ export default function Login({ setIsLoggedIn }) {
             <Email />
             <input
               type="text"
-              // ref={emailRef}
               className="grow"
               placeholder="Email"
               name="email"
@@ -62,7 +60,7 @@ export default function Login({ setIsLoggedIn }) {
             />
           </label>
           {error.email && (
-            <span className="text-red-700 text-xs">Email is required</span>
+            <span className="text-red-700 text-xs">{error.email}</span>
           )}
         </div>
         <div className="mb-2">
@@ -75,13 +73,12 @@ export default function Login({ setIsLoggedIn }) {
               type="password"
               className="grow"
               placeholder="Password"
-              // ref={passRef}
               value={form.password}
               onChange={handelChange}
             />
           </label>
           {error.password && (
-            <span className="text-red-700 text-xs">Password is required</span>
+            <span className="text-red-700 text-xs">{error.password}</span>
           )}
         </div>
       </div>
