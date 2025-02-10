@@ -7,7 +7,6 @@ export default function Cart({
   handelClick,
   handelReset,
   handelDelete,
-  isLoggedIn,
 }) {
   const { state } = useLocation();
   // console.log(isLoggedIn);
